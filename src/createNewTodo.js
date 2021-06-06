@@ -171,6 +171,12 @@ const NewToDo = (() => {
         const todoIndex = all_todos.map(function(item) {return item.id;}).indexOf(baseID);
         const element_container_name = "div" + baseID;
         const element_container = create_div(element_container_name, 'li-container') 
+        
+        const todo_p_cat = document.createElement('p'); 
+        todo_p_cat.setAttribute("class","todo-p-cat");
+        todo_p_cat.id = "todo-p-cat-"+baseID;
+        todo_p_cat.textContent = all_todos[todoIndex].category ;
+
         const todo_p = document.createElement('p');
         todo_p.textContent = input_text ;
         all_todos[todoIndex].note = todo_p.textContent;
@@ -204,6 +210,7 @@ const NewToDo = (() => {
         })
         element_container.appendChild(checkBox);
         element_container.appendChild(todo_p);
+        element_container.appendChild(todo_p_cat);
         create_buttons_container(element_container,element_container_name,todo_p.id)
         
         return element_container;
