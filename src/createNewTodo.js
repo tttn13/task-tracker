@@ -1,6 +1,7 @@
 import {NewOption,CategoriesList} from './createOptions'
 
 const NewToDo = (() => {
+    const TODO_STORAGE_ID = "myToDosStorage"
     let all_todos = [];
 
     function ToDoObject(note,date,todoID,status,category)  {
@@ -11,38 +12,34 @@ const NewToDo = (() => {
         ToDo.id = todoID;
         ToDo.status = status;
         return ToDo;
-    }
-    const get_category = () => {
-        return ToDoObject.category;
-    } 
-    const get_note = () => {
-        return ToDoObject.note;
-    }
-    const get_date = () => {
-        return ToDoObject.date;
-    }
-    
-    const get_status = () => {
-        return ToDoObject.status;
+
+
     }
            
-    
-    const setNote = (new_note) => {
-        ToDoObject.note = new_note;
+    const getNote = () => {
+        return ToDo.note;
     }
 
-    const setStatus = (status) => {
-        ToDoObject.status = status;
+    const getStatus = () => {
+        return ToDo.status;
+    }
+
+    const getCategory = () => {
+        return ToDo.category;
+    }
+
+    const getDate = () => {
+        return ToDo.date;
+    }
+
+    const getTodos = () => {
+        return all_todos;
     }
 
     const setCategory = (category) => {
-        ToDoObject.category = category;
+        ToDo.category = category;
     }
 
-    const setDate = (date) => {
-        ToDoObject.date = date;
-    }
-    
     const create_div = (div_name, div_class, div_id="") => {
         const div = document.createElement('div');
         div.setAttribute("name",div_name);
@@ -56,14 +53,14 @@ const NewToDo = (() => {
         main.appendChild(div_name);
     };
 
-    const handle_keypress = (char, textBox) => {
-        if (char === "Enter") {
-            setNote(textBox.innerText);
-            textBox.contentEditable = false;
-            textBox.style.border = "none";
-            console.log(ToDoObject.note)
-        };
-    } 
+    // const handle_keypress = (char, textBox) => {
+    //     if (char === "Enter") {
+    //         setNote(textBox.innerText);
+    //         textBox.contentEditable = false;
+    //         textBox.style.border = "none";
+    //         console.log(ToDoObject.note)
+    //     };
+    // } 
 
     const create_inputButton = (button_type, button_name, button_value = "") => {
         const button = document.createElement('input');
@@ -110,10 +107,11 @@ const NewToDo = (() => {
         } else {
             converted_date = new Date(input_date+"T00:00:00").toDateString();
         }
+
         if (input_text.value !== "") {
             const new_todo = new ToDoObject(input_text.value,converted_date,todo_id);
             all_todos.push(new_todo);
-            console.log(all_todos)
+            persistToStorage();
             setUpViews(new_todo);
             input_text.value = "";
             input_text.focus();
@@ -149,12 +147,11 @@ const NewToDo = (() => {
         elementsToRemove.forEach((ele) => {
             const parent = ele.parentNode;
             const noteToRemove = ele.querySelector('.todo-text').innerText;
-            console.log(noteToRemove)
             
             const removedIndex = all_todos.map(function(item) {return item.note;}).indexOf(noteToRemove);
             all_todos.splice(removedIndex,1);
-            console.log(all_todos);
-        
+            persistToStorage();
+            
             if (parent.childElementCount == 2) {
                 parent.removeChild(ele);
                 parent.remove();
@@ -171,40 +168,47 @@ const NewToDo = (() => {
     }  
    
     const create_element_container = (input_text,baseID) => {
+        const todoIndex = all_todos.map(function(item) {return item.id;}).indexOf(baseID);
         const element_container_name = "div" + baseID;
         const element_container = create_div(element_container_name, 'li-container') 
         const todo_p = document.createElement('p');
         todo_p.textContent = input_text ;
-        ToDoObject.note = todo_p.textContent;
+        all_todos[todoIndex].note = todo_p.textContent;
       
         todo_p.setAttribute("type","text");
         todo_p.className = 'todo-text';
         todo_p.id = "p" + element_container_name;
         todo_p.addEventListener('keypress', (event) => {
-            handle_keypress(event.key,todo_p);
+            if (event.key === "Enter") {
+                all_todos[todoIndex].note = todo_p.innerText;
+                persistToStorage();
+                todo_p.contentEditable = false;
+                todo_p.style.border = "none";
+            }
         })
 
         const checkBox = create_inputButton('checkbox','status');
-        
+        checkBox.checked = all_todos[todoIndex].status;
+        if (checkBox.checked) {
+            element_container.style.border = "dotted";
+        }
         checkBox.addEventListener('change', () => {
-            const todoIndex = all_todos.map(function(item) {return item.id;}).indexOf(baseID);
             if (checkBox.checked) {
                 all_todos[todoIndex].status = checkBox.checked;
-                element_container.style.border = "dotted blue";
-                console.log(all_todos)
+                element_container.style.border = "dotted";
             } else {
                 all_todos[todoIndex].status = checkBox.checked;
-                console.log(all_todos)
                 element_container.style.border = 'none'
-            }
+            } 
+            persistToStorage();
         })
         element_container.appendChild(checkBox);
-
         element_container.appendChild(todo_p);
         create_buttons_container(element_container,element_container_name,todo_p.id)
         
         return element_container;
     }
+
 
     const create_buttons_container = (element_container,element_container_name,element_container_id) => {
         const buttons_dropdown = create_div("dropdown","dropdown");
@@ -235,23 +239,17 @@ const NewToDo = (() => {
 
         //create pop up box
         const modalBox_id = "modalbox-" + element_container_name;
-        const modalBox = createPopUp(modalBox_id,element_container_name)
+        const modalBox = create_div("modalBox","modalBox",modalBox_id);
+        const modalBoxContent = createPopUp(modalBox_id,element_container_name,modalBox)
 
-        const close_icon_id = "close-icon-" + modalBox_id
-        const close_icon = modalBox.querySelector(`#${close_icon_id}`);
+        const modalBox_body = modalBoxContent.querySelector('#' + "body-"+modalBox_id);
 
-        const modalBox_body_id = "body-"+modalBox_id;
-        const modalBox_body = create_div("popUpBox-body","popUpBox-body",modalBox_body_id);
-        
         plus_icon.addEventListener('click', () => {
             modalBox_body.innerHTML = "";
             modalBox.style.display = "flex"; 
             const newBody = CategoriesList.addCheckBoxToCategory(modalBox_id,modalBox_body);
-            modalBox.appendChild(newBody);
-            })
+            modalBoxContent.appendChild(newBody);
 
-        close_icon.addEventListener('click', () => {
-            modalBox.style.display = 'none';
         })
 
         buttons_container.appendChild(delete_icon);
@@ -261,19 +259,29 @@ const NewToDo = (() => {
         buttons_dropdown.appendChild(dropdownBtn);
         buttons_dropdown.appendChild(buttons_container);
         element_container.appendChild(buttons_dropdown);
-        element_container.appendChild(modalBox);
-    }
 
-    const createPopUp = (modalBox_id,element_container_name) => {
-        const modalBox = create_div("modalBox","modalBox",modalBox_id);
+        modalBox.appendChild(modalBoxContent);
+        element_container.appendChild(modalBox);
+    }   
+
+    const createPopUp = (modalBox_id,element_container_name,modalBox) => {
+        const modalBoxContent = create_div("modalBoxContent","modalBoxContent");
         const closeIcon_id = "close-icon-" + modalBox_id
         const closeIcon = create_icon_container('close-icon','fas fa-times',element_container_name,closeIcon_id);
-        const modalBox_header = document.createElement('h2');
-        modalBox_header.innerText = "Please choose a category";
-
-        modalBox.appendChild(closeIcon);
-        modalBox.appendChild(modalBox_header);
-        return modalBox
+        closeIcon.addEventListener('click', () => {
+            modalBox.style.display = 'none'
+        })
+       
+        const modalBoxHeader = document.createElement('h2');
+        modalBoxHeader.innerText = "Please choose a category";
+       
+        const modalBox_body_id = "body-"+modalBox_id;
+        const modalBox_body = create_div("popUpBox-body","popUpBox-body",modalBox_body_id);
+        
+        modalBoxContent.appendChild(closeIcon);
+        modalBoxContent.appendChild(modalBoxHeader);
+        modalBoxContent.appendChild(modalBox_body);
+        return modalBoxContent
     }
 
     const show_dropDowns = (dropDownDivId) => {
@@ -302,6 +310,20 @@ const NewToDo = (() => {
         return icon_container;
     }
 
+    const persistToStorage = () => {
+        localStorage.setItem(TODO_STORAGE_ID, JSON.stringify(all_todos));
+    }
+
+    const loadFromStorage = () => {
+        const myToDoFromStorage = JSON.parse(localStorage.getItem(TODO_STORAGE_ID));
+        if (myToDoFromStorage !== null) {
+            all_todos = myToDoFromStorage;
+            console.log(all_todos)
+        } else {
+            all_todos = [];
+        }
+        all_todos.forEach(setUpViews);
+    }
     
     return {
         ToDoObject,
@@ -316,6 +338,15 @@ const NewToDo = (() => {
         createPopUp,
         create_inputButton,
         all_todos,
+        loadFromStorage,
+        getTodos,
+        getDate,
+        getNote,
+        getDate,
+        getStatus,
+        getCategory,
+        setCategory,
+        persistToStorage,
     };
 })();
 
