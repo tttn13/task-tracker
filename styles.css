@@ -1,4 +1,5 @@
 
+
 .li-container {
     display: flex;
     justify-content: space-between;
@@ -6,10 +7,11 @@
     margin-top: 10px;
     padding-right: 10px;
     width: 80%;
-    border: 0px;
+    border-bottom: 1px solid;
 }
 
 body {
+    
     display: grid;
     margin: 0;
     grid-template-columns: 400px 3fr;
@@ -52,11 +54,16 @@ form > button {
 input[name=submit] {
     margin-left: 5px;
     width: 5em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
 }
 
 .todo-text {
     width: 60vw;
     overflow: hidden;
+    padding: 5px;
+    white-space: nowrap;
+
 }
 
 .buttons-container {
@@ -177,7 +184,7 @@ input[type=button],button {
     border: none;
     padding: 10px;
     font-size: 1.2em;
-    font-family: sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     width: 10em;
 }
 
@@ -190,4 +197,21 @@ input[type=button],button {
     margin-bottom: 5px;
     padding: 5px 0px;
     font-size: 1.2em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.dropButton {
+    margin-left: 5px;
+}
+
+.project-by-date h2 {
+ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+form label  {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+form button {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
