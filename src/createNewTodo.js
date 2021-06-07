@@ -172,10 +172,10 @@ const NewToDo = (() => {
         const element_container_name = "div" + baseID;
         const element_container = create_div(element_container_name, 'li-container') 
         
-        const todo_p_cat = document.createElement('p'); 
-        todo_p_cat.setAttribute("class","todo-p-cat");
-        todo_p_cat.id = "todo-p-cat-"+baseID;
-        todo_p_cat.textContent = all_todos[todoIndex].category ;
+        // const todo_p_cat = document.createElement('p'); 
+        // todo_p_cat.setAttribute("class","todo-p-cat");
+        // todo_p_cat.id = "todo-p-cat-"+baseID;
+        // todo_p_cat.textContent = all_todos[todoIndex].category ;
 
         const todo_p = document.createElement('p');
         todo_p.textContent = input_text ;
@@ -197,20 +197,21 @@ const NewToDo = (() => {
         checkBox.checked = all_todos[todoIndex].status;
         if (checkBox.checked) {
             element_container.style.border = "dotted";
-        }
+        } 
+        
         checkBox.addEventListener('change', () => {
             if (checkBox.checked) {
                 all_todos[todoIndex].status = checkBox.checked;
                 element_container.style.border = "dotted";
             } else {
                 all_todos[todoIndex].status = checkBox.checked;
-                element_container.style.border = 'none'
+                element_container.style.border = "none";
+                element_container.style.borderBottom = '1px solid'
             } 
             persistToStorage();
         })
         element_container.appendChild(checkBox);
         element_container.appendChild(todo_p);
-        element_container.appendChild(todo_p_cat);
         create_buttons_container(element_container,element_container_name,todo_p.id)
         
         return element_container;
@@ -256,7 +257,6 @@ const NewToDo = (() => {
             modalBox.style.display = "flex"; 
             const newBody = CategoriesList.addCheckBoxToCategory(modalBox_id,modalBox_body);
             modalBoxContent.appendChild(newBody);
-
         })
 
         buttons_container.appendChild(delete_icon);
