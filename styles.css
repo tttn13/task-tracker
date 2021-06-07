@@ -74,7 +74,7 @@ input[name=submit] {
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-
+    margin-left: 6px;
 }
 .buttons-container button {
     color:rgb(112, 112, 247);
@@ -83,7 +83,7 @@ input[name=submit] {
 
 }
 .show {
-    display: block;
+    display: flex;
 }
 
 /* Modal Box styling */
