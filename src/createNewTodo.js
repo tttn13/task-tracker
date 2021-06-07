@@ -163,6 +163,7 @@ const NewToDo = (() => {
 
     const editElement = (elementName) => {
         const textToEdit = document.getElementById(elementName);
+        // textToEdit.focus();
         textToEdit.contentEditable = "true";
         textToEdit.style.border = "2px solid";
     }  
@@ -171,15 +172,9 @@ const NewToDo = (() => {
         const todoIndex = all_todos.map(function(item) {return item.id;}).indexOf(baseID);
         const element_container_name = "div" + baseID;
         const element_container = create_div(element_container_name, 'li-container') 
-        
-        // const todo_p_cat = document.createElement('p'); 
-        // todo_p_cat.setAttribute("class","todo-p-cat");
-        // todo_p_cat.id = "todo-p-cat-"+baseID;
-        // todo_p_cat.textContent = all_todos[todoIndex].category ;
-
+ 
         const todo_p = document.createElement('p');
         todo_p.textContent = input_text ;
-        all_todos[todoIndex].note = todo_p.textContent;
       
         todo_p.setAttribute("type","text");
         todo_p.className = 'todo-text';
@@ -216,7 +211,6 @@ const NewToDo = (() => {
         
         return element_container;
     }
-
 
     const create_buttons_container = (element_container,element_container_name,element_container_id) => {
         const buttons_dropdown = create_div("dropdown","dropdown");

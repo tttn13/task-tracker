@@ -215,8 +215,6 @@ const CategoriesList = (() => {
         NewToDo.persistToStorage();
     }
 
-   
-                
     const populateToDos = (category,master_div) => {
         const newtodos = NewToDo.getTodos();
         newtodos.map((item) => {
@@ -252,9 +250,7 @@ const CategoriesList = (() => {
             console.log(categoriesList)
         } else {
             categoriesList = [];
-       
         }
-        
     }
     
     return {
