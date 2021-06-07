@@ -12,8 +12,6 @@ const NewToDo = (() => {
         ToDo.id = todoID;
         ToDo.status = status;
         return ToDo;
-
-
     }
            
     const getNote = () => {
@@ -52,15 +50,6 @@ const NewToDo = (() => {
         const main = document.querySelector('#main');
         main.appendChild(div_name);
     };
-
-    // const handle_keypress = (char, textBox) => {
-    //     if (char === "Enter") {
-    //         setNote(textBox.innerText);
-    //         textBox.contentEditable = false;
-    //         textBox.style.border = "none";
-    //         console.log(ToDoObject.note)
-    //     };
-    // } 
 
     const create_inputButton = (button_type, button_name, button_value = "") => {
         const button = document.createElement('input');
