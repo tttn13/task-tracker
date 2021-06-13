@@ -195,14 +195,17 @@ const NewToDo = (() => {
     checkBox.checked = all_todos[todoIndex].status;
     if (checkBox.checked) {
       element_container.style.border = "dotted";
+      todo_p.style.textDecoration = "line-through red";
     }
 
     checkBox.addEventListener("change", () => {
       if (checkBox.checked) {
         all_todos[todoIndex].status = checkBox.checked;
         element_container.style.border = "dotted";
+        todo_p.style.textDecoration = "line-through red";
       } else {
         all_todos[todoIndex].status = checkBox.checked;
+        todo_p.style.textDecoration = "none";
         element_container.style.border = "none";
         element_container.style.borderBottom = "1px solid";
       }
