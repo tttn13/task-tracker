@@ -35,7 +35,7 @@ const NewOption = (() => {
 
     const options_listBox = document.createElement("select");
     options_listBox.id = "list";
-    options_listBox.multiple = true;
+    // options_listBox.multiple = true;
 
     const removeBtn = document.createElement("button");
     removeBtn.id = "remove-button";
