@@ -10,14 +10,19 @@ const NewOption = (() => {
   };
 
   const create_form_layout = () => {
+    const ProjectsButton = document.createElement('button')
+    ProjectsButton.setAttribute("id", "projects-btn");
+    ProjectsButton.textContent = "Projects";
+   
     const menu_form = document.createElement("form");
+    menu_form.style.display = 'block';
     const form_label = document.createElement("label");
-    form_label.innerText = "Category\n";
+    form_label.innerText = "Project\n";
 
     const input_form = document.createElement("input");
     input_form.type = "text";
     input_form.id = "category-input";
-    input_form.placeholder = "Enter a category";
+    input_form.placeholder = "Enter a project";
 
     const addBtn = document.createElement("button");
     addBtn.textContent = "Add";
@@ -37,6 +42,10 @@ const NewOption = (() => {
     removeBtn.textContent = "Remove";
     removeBtn.addEventListener("click", remove_selected_options);
 
+    const categories_list = document.createElement("ul");
+    categories_list.id = "categories-list";
+    categories_list.style.display = 'block';
+
     const homeBtn = document.createElement("button");
     homeBtn.setAttribute("id", "home-btn");
     homeBtn.textContent = "Home Page";
@@ -46,7 +55,18 @@ const NewOption = (() => {
       hidePresentDiv("");
     });
 
+    ProjectsButton.addEventListener("click", () => {
+      if (menu_form.style.display && categories_list.style.display != 'none'){
+        menu_form.style.display = 'none';
+          categories_list.style.display = 'none';
+        } else {
+          menu_form.style.display = 'block';
+          categories_list.style.display = 'block';
+        }
+    })
+
     side_bar.appendChild(homeBtn);
+    side_bar.appendChild( ProjectsButton);
     menu_form.appendChild(form_label);
     menu_form.appendChild(input_form);
     menu_form.appendChild(addBtn);
@@ -55,10 +75,8 @@ const NewOption = (() => {
     menu_form.appendChild(removeBtn);
 
     side_bar.appendChild(menu_form);
-
-    const categories_list = document.createElement("ul");
-    categories_list.id = "categories-list";
     side_bar.appendChild(categories_list);
+    
   };
 
   const create_new_option = (event) => {
@@ -213,29 +231,30 @@ const CategoriesList = (() => {
 
   const ifCheckBoxIsChecked = (checkBox, checkBoxText, modalBox_id) => {
     NewToDo.getTodos()
-    .filter(item => modalBox_id.includes(item.id))
-    .forEach((item) => {
+      .filter((item) => modalBox_id.includes(item.id))
+      .forEach((item) => {
         checkBox.checked = item.category == checkBoxText;
-    })
-    }
-   
+      });
+  };
 
   const updateItemCategory = (modalBox_id, checkBox, cat_element_p) => {
     NewToDo.getTodos()
-    .filter(item => modalBox_id.includes(item.id))
-    .forEach((item) => {
-        checkBox.checked ? (item.category = cat_element_p.innerText) : (item.category = "");
-    })
+      .filter((item) => modalBox_id.includes(item.id))
+      .forEach((item) => {
+        checkBox.checked
+          ? (item.category = cat_element_p.innerText)
+          : (item.category = "");
+      });
 
     NewToDo.persistToStorage();
   };
 
   const populateToDos = (category, master_div) => {
     NewToDo.getTodos()
-        .filter(item => item.category == category)
-        .forEach((item) => {
-            setUpToDoView(item, master_div)
-        });
+      .filter((item) => item.category == category)
+      .forEach((item) => {
+        setUpToDoView(item, master_div);
+      });
     return master_div;
   };
 
@@ -248,7 +267,7 @@ const CategoriesList = (() => {
     categoryTime.innerText = item.date;
     master_div.appendChild(categoryTodo);
     master_div.appendChild(categoryTime);
-  }
+  };
 
   const populateViews = () => {
     const options_box = document.querySelector("#list");

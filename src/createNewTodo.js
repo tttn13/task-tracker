@@ -75,9 +75,13 @@ const NewToDo = (() => {
     const saveButton = create_inputButton("button", "submit", "SAVE");
     saveButton.addEventListener("click", updateToDoList);
 
+    const input_label_date = document.createElement("label");
+    input_label_date.for = "date-container";
+    input_label_date.innerText = "Enter Date\n";
     const inputDate = create_inputButton("date", "todo-date");
     inputDate.className = "date";
 
+    input_container.appendChild(input_label_date);
     input_container.appendChild(inputDate);
     input_container.appendChild(input_label);
     input_container.appendChild(inputText);
