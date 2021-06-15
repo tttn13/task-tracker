@@ -2,7 +2,8 @@
 * {
   font: 1.1rem/1.5 "Comfortaa", sans-serif;
   font-weight: 700;
-  background-color: rgb(137, 158, 226);
+  background-color: #2e5f8b;
+  color: #f8f8f8;
 }
 
 .li-container {
@@ -32,6 +33,12 @@ body {
 #category-input {
   width: 13.5rem;
   margin-bottom: 5px;
+  border: solid 2px;
+  outline: none;
+}
+
+#category-input::placeholder {
+  color: rgb(202, 208, 249);
 }
 
 form > button {
@@ -42,6 +49,8 @@ form > button {
 #list {
   width: 14rem;
   margin-bottom: 5px;
+  border: solid 2px;
+  outline: none;
 }
 
 #main {
@@ -53,6 +62,8 @@ form > button {
 input[name="todo-input"] {
   margin-bottom: 20px;
   border: solid 2px;
+  outline: none;
+  font-weight: 400;
 }
 
 .text {
@@ -94,6 +105,8 @@ input[name="submit"] {
 .buttons-container button {
   padding: 5px;
   display: block;
+  border: solid 1px;
+  outline: none;
 }
 .show {
   display: flex;
@@ -159,15 +172,11 @@ form {
   padding: 0px;
 }
 
-#categories-list > li {
-  margin-left: -1px;
-  margin-top: -1px;
-}
-
 .added-category {
+  margin-left: -1px;
+  margin-top: -2px;
+  border: solid 2px;
   list-style-type: none;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
   padding: 10px;
   cursor: pointer;
 }
@@ -175,10 +184,6 @@ form {
 input[type="button"],
 button {
   cursor: pointer;
-}
-
-.added-category:hover {
-  background-color: #ddd;
 }
 
 .category-time {
@@ -192,6 +197,12 @@ button {
 .input {
   font-style: italic;
 }
+
+#add-button,
+#remove-button {
+  border: solid 2px;
+}
+
 .date {
   background: rgb(36, 36, 121);
   color: #fff;
