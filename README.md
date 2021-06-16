@@ -39,7 +39,7 @@ const setToDoView = (todo, todo_id) => {
 ### Edit Settings
 - Users can edit the todo by clicking the modal box. Settings include editing the text, deleting todo and selecting the project/category that the todo belongs to. 
 
-<img src='./assets/demo_images/edit-settings.gif' width = "600" height= '400'>
+<img src='./assets/demo_images/edit-settings.gif'>
 
 - Once task is completed users can tick the checkbox. The checked todo will be striked through with dotted outline.  
 
