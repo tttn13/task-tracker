@@ -34,10 +34,6 @@ const NewToDo = (() => {
     return all_todos;
   };
 
-  const setCategory = (category) => {
-    ToDo.category = category;
-  };
-
   const create_div = (div_name, div_class, div_id = "") => {
     const div = document.createElement("div");
     div.setAttribute("name", div_name);
@@ -151,11 +147,8 @@ const NewToDo = (() => {
   const generateViews = () => {
     all_todos.forEach((todo) => {
       const todoDivContent = setUpViews(todo, todo.id);
-      // const todoDate = document.createElement("sup");
-      // todoDate.innerText = todo.date;
       const todoProject = document.createElement("p");
       todoProject.name = todo.category;
-      // todoDivContent.appendChild(todoDate);
       todoDivContent.appendChild(todoProject);
       const exist = document.getElementById(todo.date) 
       if (exist) {
@@ -214,8 +207,6 @@ const NewToDo = (() => {
   };
 
   const create_element_container = (date, input_text, baseID) => {
-    console.log(baseID);
-    console.log(all_todos);
     const todoIndex = all_todos.findIndex((item) => baseID.includes(item.id));
     const element_container_name = "div" + baseID;
     const element_container = create_div(
@@ -454,7 +445,6 @@ const NewToDo = (() => {
     getDate,
     getStatus,
     getCategory,
-    setCategory,
     persistToStorage,
     generateViews,
     clearContent,

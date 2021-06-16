@@ -121,7 +121,9 @@ const NewOption = (() => {
     // remove from categories menu
     categories_menu.removeChild(categories_menu.childNodes[removed_index]);
     //remove from array
+    CategoriesList.updateToDosArr(removed_index)
     CategoriesList.remove_category(removed_index);
+
   };
 
   const addToCategoriesList = (main_list, addedCategory) => {
@@ -130,7 +132,7 @@ const NewOption = (() => {
     projectContainer.className = "added-category";
     projectContainer.id = addedCategory;
     const categoryDivId = addedCategory + "-populate";
-    createProjectContainer(addedCategory, categoryDivId);
+    createProjectContainer(addedCategory,categoryDivId);
     projectContainer.addEventListener("click", () => {
       document.getElementById("all-projects").style.display = "block";
       const main = document.getElementById("main");
@@ -155,6 +157,7 @@ const NewOption = (() => {
 
   const createProjectContainer = (addedCategory, categoryDivId) => {
     const projectDiv = document.createElement("div");
+    projectDiv.setAttribute('name', `${categoryDivId}`) 
     projectDiv.className = "category-div";
     projectDiv.id = categoryDivId;
     const heading = document.createElement("h2");
@@ -165,23 +168,22 @@ const NewOption = (() => {
   };
 
   const clearProjectContent = (categoryDivId) => {
-    const content = document.getElementById(categoryDivId);
-    console.log(content);
-    content.innerHTML = "";
+    const contentToClear = document.getElementsByName(categoryDivId);
+    console.log(contentToClear);
+    contentToClear.forEach((content) => content.innerHTML='')
   };
 
   const setUpProjectView = (addedCategory, categoryDivId) => {
     const content = document.getElementById(categoryDivId);
-    const heading = document.createElement("h2");
+    const heading = document.createElement('h2');
     heading.textContent = addedCategory;
     content.appendChild(heading);
-    console.log(NewToDo.getTodos())
     NewToDo.getTodos()
       .filter((item) => item.category == addedCategory)
       .forEach((item) => {
         const itemID = categoryDivId + item.id;
         const todoDivContent = NewToDo.setUpViews(item, itemID);
-        const todoDate = document.createElement("sup");
+        const todoDate = document.createElement('sup');
         todoDate.innerText = item.date;
         todoDivContent.appendChild(todoDate);
         content.appendChild(todoDivContent);
@@ -208,13 +210,25 @@ const CategoriesList = (() => {
     );
   };
 
-  const remove_category = (categoryIndex) => {
-    categoriesList.splice(categoryIndex, 1);
+  const remove_category = (removedIndex) => {
+    categoriesList.splice(removedIndex, 1);
     localStorage.setItem(
       "CategoriesArrayStorage",
       JSON.stringify(categoriesList)
     );
   };
+
+  const updateToDosArr = (removedIndex) => {
+    console.log(categoriesList[removedIndex])
+    NewToDo.getTodos()
+    .filter((item) => item.category === categoriesList[removedIndex])
+    .forEach((item) => {
+      item.category = ""
+      console.log(item)
+    });
+    
+    NewToDo.persistToStorage()
+  }
 
   const addCheckBoxToCategory = (modalBox_id, parent_div) => {
     categoriesList.forEach((category) => {
@@ -264,22 +278,6 @@ const CategoriesList = (() => {
     NewToDo.persistToStorage();
   };
 
-  const populateToDos = (addedCategory, projectContainer) => {
-    projectContainer.innerHTML = "";
-    NewToDo.getTodos()
-      .filter((item) => item.category == addedCategory)
-      .forEach((item) => {
-        const todo_date = document.createElement("p");
-        todo_date.className = "todo-project-date";
-        todo_date.innerText = item.date;
-        projectContainer.appendChild(todo_date);
-        const itemsContainer = filterElementsContainer(item.id);
-        itemsContainer.forEach((item) => {
-          projectContainer.appendChild(item);
-        });
-      });
-  };
-
   const populateViews = () => {
     const options_box = document.querySelector("#list");
     const categories_menu = document.querySelector("#categories-list");
@@ -305,11 +303,11 @@ const CategoriesList = (() => {
     insert_category,
     addCheckBoxToCategory,
     remove_category,
-    populateToDos,
     categoriesList,
     loadFromStorage,
     populateViews,
     ifCheckBoxIsChecked,
+    updateToDosArr,
   };
 })();
 
