@@ -105,7 +105,7 @@ const NewToDo = (() => {
       );
       all_todos.push(new_todo);
       persistToStorage();
-      setview(new_todo,todo_id)
+      setToDoView(new_todo,todo_id)
       input_text.value = "";
       input_text.focus();
     } else {
@@ -113,20 +113,21 @@ const NewToDo = (() => {
     }
   };
 
-  const setview = (todo,todo_id) => {
-    const exist = document.getElementById(todo.date) 
-      
-    const dateDiv = document.createElement('div')
-    dateDiv.id = todo.date
-    const divHead = document.createElement('h2')
-    divHead.innerText = todo.date;
-    dateDiv.appendChild(divHead)
-    const todoDivContent=setUpViews(todo, todo_id);
-    if (exist) {
-      exist.appendChild(todoDivContent)
+  const setToDoView = (todo, todo_id) => {
+    const existingDiv = document.getElementById(todo.date) 
+    const todosWithSameDate = document.createElement('div')
+    todosWithSameDate.id = todo.date
+    
+    const divHeader = document.createElement('h2')
+    divHeader.innerText = todo.date;
+    todosWithSameDate.appendChild(divHeader)
+
+    const divContent = setUpViews(todo, todo_id);
+    if (existingDiv) {
+      existingDiv.appendChild(divContent)
     } else {
-      dateDiv.appendChild(todoDivContent)
-      document.querySelector("#main").appendChild(dateDiv)
+      todosWithSameDate.appendChild(divContent)
+      document.querySelector("#main").appendChild(todosWithSameDate)
     }
   }
 
@@ -239,12 +240,11 @@ const NewToDo = (() => {
     }
 
     checkBox.addEventListener("change", () => {
+      all_todos[todoIndex].status = checkBox.checked;
       if (checkBox.checked) {
-        all_todos[todoIndex].status = checkBox.checked;
         element_container.style.border = "dotted";
         todo_p.style.textDecoration = "line-through #e1304e 3px";
       } else {
-        all_todos[todoIndex].status = checkBox.checked;
         todo_p.style.textDecoration = "none";
         element_container.style.border = "none";
         element_container.style.borderBottom = "1px solid";

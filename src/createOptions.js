@@ -219,7 +219,6 @@ const CategoriesList = (() => {
   };
 
   const updateToDosArr = (removedIndex) => {
-    console.log(categoriesList[removedIndex])
     NewToDo.getTodos()
     .filter((item) => item.category === categoriesList[removedIndex])
     .forEach((item) => {
@@ -266,12 +265,12 @@ const CategoriesList = (() => {
       });
   };
 
-  const updateItemCategory = (modalBox_id, checkBox, cat_element_p) => {
+  const updateItemCategory = (modalBox_id, checkBox, project_element) => {
     NewToDo.getTodos()
       .filter((item) => modalBox_id.includes(item.id))
       .forEach((item) => {
         checkBox.checked
-          ? (item.category = cat_element_p.innerText)
+          ? (item.category = project_element.innerText)
           : (item.category = "");
       });
 
