@@ -1,13 +1,13 @@
 # Task Tracker
----
+
 ### [Try the App](https://tttn13.github.io/to-do-list/)
 
 ## Background and Overview
----
+
 Task Tracker is a no frills to-do list. Everything is accounted for so you can make progress on the things that are important to you. Simply organize all your to-do’s in projects and mark them when done. The app has a simple UI to ensure quick navigation and avoid clutter. 
 
 ## Technologies
----
+
 - Vanilla JavaScript for structure and logic
 - Minimal HTML for DOM manipulation and rendering
 - CSS for styling
@@ -15,7 +15,7 @@ Task Tracker is a no frills to-do list. Everything is accounted for so you can m
 - localStorage for database
 
 ## Key Features
----
+
 ### Quick Entry/Capture 
 - Users can quickly add a task with or without the date. Tasks without dates are stored in a section called Misc. 
 - Tasks sharing the same deadlines/dates are displayed together in a sub-list on main page.
@@ -74,7 +74,7 @@ checkBox.addEventListener("change", () => {
 - Users can return to Home Page by clicking the 'Home Page' button. Users have the same access to edit settings in each individual project. 
 
 ## Future Development Plans
----
+
 Ver 2.0 is going to be released with significant updates :
 - Using React and Redux on the front end. 
 - PostgresSQL database is going to be used for persistence on the back end. 
