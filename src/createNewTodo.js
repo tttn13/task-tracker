@@ -96,7 +96,7 @@ const NewToDo = (() => {
     let converted_date = "";
     let todo_id = "base-" + new Date().getMilliseconds().toString();
     if (input_date == "") {
-      converted_date = "Misc";
+      converted_date = 'Misc';
     } else {
       converted_date = new Date(input_date + "T00:00:00").toDateString();
     }
