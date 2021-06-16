@@ -75,7 +75,8 @@ body {
   border-radius: 20px;
   padding: 30px;
   width: 500px;
-  margin-bottom: 40px;
+  /* width: 500px; */
+  margin: 0 0 40px 0;
 }
 
 input[name="todo-input"] {
@@ -84,6 +85,7 @@ input[name="todo-input"] {
   outline: none;
   font-weight: 400;
   border-radius: 10px;
+  max-width: 300px;
 }
 
 .text {
@@ -288,7 +290,7 @@ input[type="button"],
 
   input[name="todo-input"] {
     font-family: sans-serif;
-    width: 13em;
+    width: 80%;
     padding: 5px 10px;
   }
 
@@ -311,10 +313,14 @@ input[type="button"],
   }
 
   input[name="todo-input"] {
-    width: 60%;
+    width: 30%;
   }
 
   #category-input {
+    width: 90%;
+  }
+
+  .date {
     width: 90%;
   }
 
@@ -333,7 +339,7 @@ input[type="button"],
   }
 
   .date {
-    width: 90%;
+    width: 70%;
   }
 
   .li-container {
@@ -341,7 +347,7 @@ input[type="button"],
   }
 
   #main {
-    margin: 0 0 0 20px;
+    margin: 0;
     width: 100%;
   }
 
@@ -351,7 +357,7 @@ input[type="button"],
   }
 
   #side-bar {
-    width: 62%;
+    width: 68%;
     margin-left: 20px;
   }
 }
