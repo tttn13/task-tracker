@@ -96,7 +96,7 @@ const NewToDo = (() => {
     let converted_date = "";
     let todo_id = "base-" + new Date().getMilliseconds().toString();
     if (input_date == "") {
-      converted_date = "Miscellaneous";
+      converted_date = "Misc";
     } else {
       converted_date = new Date(input_date + "T00:00:00").toDateString();
     }
@@ -109,7 +109,8 @@ const NewToDo = (() => {
       );
       all_todos.push(new_todo);
       persistToStorage();
-      setUpViews(new_todo);
+      // clearContent();
+      setview(new_todo,todo_id)
       input_text.value = "";
       input_text.focus();
     } else {
@@ -117,18 +118,59 @@ const NewToDo = (() => {
     }
   };
 
-  const setUpViews = (newToDo) => {
-    const divWithSameDate = document.querySelector(`[name="${newToDo.date}"]`);
-    if (!divWithSameDate) {
-      const newDiv = createDivByDate(newToDo.date);
-      newDiv.appendChild(create_element_container(newToDo.note, newToDo.id));
-      append_div_toMain(newDiv);
+  const setview = (todo,todo_id) => {
+    const exist = document.getElementById(todo.date) 
+      
+    const dateDiv = document.createElement('div')
+    dateDiv.id = todo.date
+    const divHead = document.createElement('h2')
+    divHead.innerText = todo.date;
+    dateDiv.appendChild(divHead)
+    const todoDivContent=setUpViews(todo, todo_id);
+    if (exist) {
+      exist.appendChild(todoDivContent)
     } else {
-      divWithSameDate.appendChild(
-        create_element_container(newToDo.note, newToDo.id)
-      );
-      append_div_toMain(divWithSameDate);
+      dateDiv.appendChild(todoDivContent)
+      document.querySelector("#main").appendChild(dateDiv)
     }
+  }
+
+  const clearContent = () => {
+    const allLiContainer = document.querySelectorAll(".li-container");
+    allLiContainer.forEach((ele) => ele.remove());
+  };
+
+  const setUpViews = (newToDo, todoID) => {
+    const divContent = create_element_container(
+      newToDo.date,
+      newToDo.note,
+      todoID
+    );
+    return divContent;
+  };
+
+  const generateViews = () => {
+    all_todos.forEach((todo) => {
+      const todoDivContent = setUpViews(todo, todo.id);
+      // const todoDate = document.createElement("sup");
+      // todoDate.innerText = todo.date;
+      const todoProject = document.createElement("p");
+      todoProject.name = todo.category;
+      // todoDivContent.appendChild(todoDate);
+      todoDivContent.appendChild(todoProject);
+      const exist = document.getElementById(todo.date) 
+      if (exist) {
+        exist.appendChild(todoDivContent)
+      } else {
+        const dateDiv = document.createElement('div')
+        dateDiv.id = todo.date
+        const divHead = document.createElement('h2')
+        divHead.innerText = todo.date;
+        dateDiv.appendChild(divHead)
+        dateDiv.appendChild(todoDivContent)
+        document.querySelector("#main").appendChild(dateDiv)
+      }
+    });
   };
 
   const createDivByDate = (heading_text) => {
@@ -172,8 +214,10 @@ const NewToDo = (() => {
     textToEdit.style.border = "2px solid";
   };
 
-  const create_element_container = (input_text, baseID) => {
-    const todoIndex = all_todos.findIndex((item) => item.id === baseID);
+  const create_element_container = (date, input_text, baseID) => {
+    console.log(baseID);
+    console.log(all_todos);
+    const todoIndex = all_todos.findIndex((item) => baseID.includes(item.id));
     const element_container_name = "div" + baseID;
     const element_container = create_div(
       element_container_name,
@@ -181,32 +225,34 @@ const NewToDo = (() => {
     );
 
     const todo_p = document.createElement("p");
-    todo_p.textContent = input_text;
-
+    todo_p.innerText = input_text;
     todo_p.setAttribute("type", "text");
     todo_p.className = "todo-text";
     todo_p.id = "p" + element_container_name;
     todo_p.addEventListener("keypress", (event) => {
-      if (event.key === "Enter") {
-        all_todos[todoIndex].note = todo_p.innerText;
+      if (event.key === "Enter" && todo_p.innerText.trim() !== "") {
+        all_todos[todoIndex].note = input_text;
         persistToStorage();
         todo_p.contentEditable = false;
         todo_p.style.border = "none";
       }
     });
 
+    const todo_date = document.createElement("p");
+    todo_date.name = date;
+
     const checkBox = create_inputButton("checkbox", "status");
     checkBox.checked = all_todos[todoIndex].status;
     if (checkBox.checked) {
       element_container.style.border = "dotted";
-      todo_p.style.textDecoration = "line-through red";
+      todo_p.style.textDecoration = "line-through #e1304e 3px";
     }
 
     checkBox.addEventListener("change", () => {
       if (checkBox.checked) {
         all_todos[todoIndex].status = checkBox.checked;
         element_container.style.border = "dotted";
-        todo_p.style.textDecoration = "line-through red";
+        todo_p.style.textDecoration = "line-through #e1304e 3px";
       } else {
         all_todos[todoIndex].status = checkBox.checked;
         todo_p.style.textDecoration = "none";
@@ -215,14 +261,16 @@ const NewToDo = (() => {
       }
       persistToStorage();
     });
+    element_container.appendChild(todo_date);
     element_container.appendChild(checkBox);
+
     element_container.appendChild(todo_p);
+
     create_buttons_container(
       element_container,
       element_container_name,
       todo_p.id
     );
-
     return element_container;
   };
 
@@ -381,11 +429,10 @@ const NewToDo = (() => {
     const myToDoFromStorage = JSON.parse(localStorage.getItem(TODO_STORAGE_ID));
     if (myToDoFromStorage !== null) {
       all_todos = myToDoFromStorage;
-      console.log(all_todos);
+      generateViews();
     } else {
       all_todos = [];
     }
-    all_todos.forEach(setUpViews);
   };
 
   return {
@@ -410,6 +457,9 @@ const NewToDo = (() => {
     getCategory,
     setCategory,
     persistToStorage,
+    generateViews,
+    clearContent,
+    setUpViews,
   };
 })();
 

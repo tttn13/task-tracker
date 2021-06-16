@@ -6,16 +6,17 @@ const NewOption = (() => {
   const create_allProjectsContainers = () => {
     const allProjectsContainers = document.createElement("div");
     allProjectsContainers.id = "all-projects";
+    allProjectsContainers.style.display = "none";
     document.querySelector("body").appendChild(allProjectsContainers);
   };
 
   const create_form_layout = () => {
-    const ProjectsButton = document.createElement('button')
+    const ProjectsButton = document.createElement("button");
     ProjectsButton.setAttribute("id", "projects-btn");
     ProjectsButton.textContent = "Projects";
-   
+
     const menu_form = document.createElement("form");
-    menu_form.style.display = 'block';
+    menu_form.style.display = "block";
     const form_label = document.createElement("label");
     form_label.innerText = "Project\n";
 
@@ -25,7 +26,7 @@ const NewOption = (() => {
     input_form.placeholder = "Enter a project";
 
     const addBtn = document.createElement("button");
-    addBtn.textContent = "Add";
+    addBtn.textContent = "ADD";
     addBtn.id = "add-button";
     addBtn.addEventListener("click", create_new_option);
 
@@ -39,34 +40,35 @@ const NewOption = (() => {
 
     const removeBtn = document.createElement("button");
     removeBtn.id = "remove-button";
-    removeBtn.textContent = "Remove";
+    removeBtn.textContent = "REMOVE";
     removeBtn.addEventListener("click", remove_selected_options);
 
     const categories_list = document.createElement("ul");
     categories_list.id = "categories-list";
-    categories_list.style.display = 'block';
+    categories_list.style.display = "block";
 
     const homeBtn = document.createElement("button");
     homeBtn.setAttribute("id", "home-btn");
     homeBtn.textContent = "Home Page";
     homeBtn.addEventListener("click", () => {
-      const main = document.getElementById("main");
-      main.style.display = "block";
+      document.getElementById("main").style.display = "block";
+      // NewToDo.clearContent()
+      // NewToDo.generateViews()
       hidePresentDiv("");
     });
 
     ProjectsButton.addEventListener("click", () => {
-      if (menu_form.style.display && categories_list.style.display != 'none'){
-        menu_form.style.display = 'none';
-          categories_list.style.display = 'none';
-        } else {
-          menu_form.style.display = 'block';
-          categories_list.style.display = 'block';
-        }
-    })
+      if (menu_form.style.display && categories_list.style.display != "none") {
+        menu_form.style.display = "none";
+        categories_list.style.display = "none";
+      } else {
+        menu_form.style.display = "block";
+        categories_list.style.display = "block";
+      }
+    });
 
     side_bar.appendChild(homeBtn);
-    side_bar.appendChild( ProjectsButton);
+    side_bar.appendChild(ProjectsButton);
     menu_form.appendChild(form_label);
     menu_form.appendChild(input_form);
     menu_form.appendChild(addBtn);
@@ -76,7 +78,6 @@ const NewOption = (() => {
 
     side_bar.appendChild(menu_form);
     side_bar.appendChild(categories_list);
-    
   };
 
   const create_new_option = (event) => {
@@ -124,18 +125,21 @@ const NewOption = (() => {
   };
 
   const addToCategoriesList = (main_list, addedCategory) => {
-    const categoryContainer = document.createElement("li");
-    categoryContainer.innerText = addedCategory;
-    categoryContainer.className = "added-category";
-    categoryContainer.id = addedCategory;
-    categoryContainer.addEventListener("click", () => {
-      const categoryDivId = addedCategory + "-populate";
+    const projectContainer = document.createElement("li");
+    projectContainer.innerText = addedCategory;
+    projectContainer.className = "added-category";
+    projectContainer.id = addedCategory;
+    const categoryDivId = addedCategory + "-populate";
+    createProjectContainer(addedCategory, categoryDivId);
+    projectContainer.addEventListener("click", () => {
+      document.getElementById("all-projects").style.display = "block";
       const main = document.getElementById("main");
       main.style.display = "none";
-      configureEachCategoryViews(addedCategory, categoryDivId);
+      clearProjectContent(categoryDivId);
+      setUpProjectView(addedCategory, categoryDivId);
       hidePresentDiv(categoryDivId);
     });
-    main_list.appendChild(categoryContainer);
+    main_list.appendChild(projectContainer);
   };
 
   const hidePresentDiv = (categoryDivId) => {
@@ -149,27 +153,38 @@ const NewOption = (() => {
     });
   };
 
-  const configureEachCategoryViews = (addedCategory, categoryDivId) => {
-    const allProjectsContainers = document.getElementById("all-projects");
-    const existingDiv = document.querySelector(`#${categoryDivId}`);
-    if (existingDiv) {
-      const allps = existingDiv.querySelectorAll("p");
-      allps.forEach((p) => p.remove());
-      const new_div = CategoriesList.populateToDos(addedCategory, existingDiv);
-      allProjectsContainers.appendChild(new_div);
-    } else {
-      const categoryDiv = document.createElement("div");
-      categoryDiv.className = "category-div";
-      categoryDiv.id = categoryDivId;
-      const heading = document.createElement("h2");
-      heading.textContent = addedCategory;
-      categoryDiv.appendChild(heading);
-      const new_categoryDiv = CategoriesList.populateToDos(
-        addedCategory,
-        categoryDiv
-      );
-      allProjectsContainers.appendChild(new_categoryDiv);
-    }
+  const createProjectContainer = (addedCategory, categoryDivId) => {
+    const projectDiv = document.createElement("div");
+    projectDiv.className = "category-div";
+    projectDiv.id = categoryDivId;
+    const heading = document.createElement("h2");
+    heading.textContent = addedCategory;
+    projectDiv.appendChild(heading);
+    document.getElementById("all-projects").appendChild(projectDiv);
+    return projectDiv;
+  };
+
+  const clearProjectContent = (categoryDivId) => {
+    const content = document.getElementById(categoryDivId);
+    console.log(content);
+    content.innerHTML = "";
+  };
+
+  const setUpProjectView = (addedCategory, categoryDivId) => {
+    const content = document.getElementById(categoryDivId);
+    const heading = document.createElement("h2");
+    heading.textContent = addedCategory;
+    content.appendChild(heading);
+    NewToDo.getTodos()
+      .filter((item) => item.category == addedCategory)
+      .forEach((item) => {
+        const itemID = categoryDivId + item.id;
+        const todoDivContent = NewToDo.setUpViews(item, itemID);
+        const todoDate = document.createElement("sup");
+        todoDate.innerText = item.date;
+        todoDivContent.appendChild(todoDate);
+        content.appendChild(todoDivContent);
+      });
   };
 
   return {
@@ -178,7 +193,6 @@ const NewOption = (() => {
     side_bar,
     create_new_option,
     addToCategoriesList,
-    configureEachCategoryViews,
     create_allProjectsContainers,
   };
 })();
@@ -249,24 +263,20 @@ const CategoriesList = (() => {
     NewToDo.persistToStorage();
   };
 
-  const populateToDos = (category, master_div) => {
+  const populateToDos = (addedCategory, projectContainer) => {
+    projectContainer.innerHTML = "";
     NewToDo.getTodos()
-      .filter((item) => item.category == category)
+      .filter((item) => item.category == addedCategory)
       .forEach((item) => {
-        setUpToDoView(item, master_div);
+        const todo_date = document.createElement("p");
+        todo_date.className = "todo-project-date";
+        todo_date.innerText = item.date;
+        projectContainer.appendChild(todo_date);
+        const itemsContainer = filterElementsContainer(item.id);
+        itemsContainer.forEach((item) => {
+          projectContainer.appendChild(item);
+        });
       });
-    return master_div;
-  };
-
-  const setUpToDoView = (item, master_div) => {
-    const categoryTodo = document.createElement("p");
-    categoryTodo.setAttribute("class", "category-note");
-    const categoryTime = document.createElement("p");
-    categoryTime.setAttribute("class", "category-time");
-    categoryTodo.innerText = item.note;
-    categoryTime.innerText = item.date;
-    master_div.appendChild(categoryTodo);
-    master_div.appendChild(categoryTime);
   };
 
   const populateViews = () => {
@@ -285,7 +295,6 @@ const CategoriesList = (() => {
     );
     if (categoriesArrayFromStorage !== null) {
       categoriesList = categoriesArrayFromStorage;
-      console.log(categoriesList);
     } else {
       categoriesList = [];
     }
