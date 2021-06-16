@@ -14,7 +14,7 @@ Task Tracker is a no frills to-do list. Everything is accounted for so you can m
 Add task 
 <img src='./assets/demo_images/add-task.gif' width = "600" height= '400'>
 Add Project
-<img src='./assets/demo_images/add-project.gif' width = "600" height= '400'>
+<img src='./assets/demo_images/add-project.gif' width = "600" height= '500'>
 ## Future Development Plans
 Ver 2.0 is going to be released with significant updates :
 - Using React and Redux on the front end. 
