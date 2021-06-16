@@ -62,15 +62,20 @@ body {
 
 #main {
   padding: 50px;
-  border: solid 2px;
   margin: 80px;
-  border-radius: 20px;
-  width: 60vw;
 }
 
 #all-projects {
   height: 100vh;
   width: 100%;
+}
+
+.input {
+  border: solid 2px;
+  border-radius: 20px;
+  padding: 30px;
+  width: 500px;
+  margin-bottom: 40px;
 }
 
 input[name="todo-input"] {
@@ -198,9 +203,6 @@ form {
 }
 
 .added-category {
-  /* margin-left: -1px;
-  margin-top: -2px;
-  border: solid 2px; */
   border: none;
   list-style-type: none;
   padding: 10px;
@@ -276,7 +278,7 @@ input[type="button"],
 }
 
 @media screen and (max-width: 1540px) {
-  #main {
+  .input {
     width: 50%;
   }
 
@@ -339,7 +341,13 @@ input[type="button"],
   }
 
   #main {
-    margin-top: 0px;
+    margin: 0 0 0 20px;
+    width: 100%;
+  }
+
+  .input {
+    margin: 0;
+    width: 62%;
   }
 
   #side-bar {
