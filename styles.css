@@ -3,7 +3,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-
+  height: 100%;
 }
 
 * {
@@ -171,7 +171,6 @@ input[name="submit"] {
   display: flex;
   align-items: center;
   background-color: inherit;
-
 }
 
 .modalBox h2 {
