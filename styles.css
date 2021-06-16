@@ -19,7 +19,7 @@ body {
   align-items: center;
   margin-top: 10px;
   padding-right: 10px;
-  width: 80vw;
+  max-width: 80vw;
   border-bottom: 1px solid;
 }
 
