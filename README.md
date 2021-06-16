@@ -16,12 +16,12 @@ Task Tracker is a no frills to-do list. Everything is accounted for so you can m
 
 ## Key Features
 ---
-##### Quick Entry/Capture 
+### Quick Entry/Capture 
 - Users can quickly add a task with or without the date. Tasks without dates are stored in a section called Misc. 
 - Tasks sharing the same deadlines/dates are displayed together in a sub-list on main page.
 <img src='./assets/demo_images/add-task.gif' width = "600" height= '400'>
 
-```
+~~~
 const setToDoView = (todo, todo_id) => {
     const existingDiv = document.getElementById(todo.date) 
     const todosWithSameDate = document.createElement('div')
@@ -34,15 +34,15 @@ const setToDoView = (todo, todo_id) => {
       document.querySelector("#main").appendChild(todosWithSameDate)
     }
 }
-```
-##### Edit Settings
+~~~
+### Edit Settings
 - Users can edit the todo by clicking the modal box. Settings include editing the text, deleting todo and selecting the project/category that the todo belongs to. 
 
 <img src='./assets/demo_images/edit-settings.gif' width = "600" height= '400'>
 
 - Once task is completed users can tick the checkbox. The checked todo will be striked through with dotted outline.  
 
-```
+~~~
 checkBox.checked = all_todos[todoIndex].status;
     if (checkBox.checked) {
       element_container.style.border = "dotted";
@@ -54,11 +54,11 @@ checkBox.addEventListener("change", () => {
       //...
       }
   persistToStorage();
-````
-##### Create Projects/Categories
+~~~
+### Create Projects/Categories
 - Users can create projects/categories so they can group relevant tasks together in their respective projects. This will make your todo list much more tidy and organized. If users wish to remove project they can do so by selecting the project in the dropdown and click 'Remove' button.
 <img src='./assets/demo_images/add-project.gif' width = "600" height= '500'>
-````
+~~~
   const updateItemCategory = (modalBox_id, checkBox, project_element) => {
     NewToDo.getTodos()
       .filter((item) => modalBox_id.includes(item.id))
@@ -67,7 +67,7 @@ checkBox.addEventListener("change", () => {
           ? (item.category = project_element.innerText)
           : (item.category = "");
       });
-````
+~~~
 
 ## Future Development Plans
 ---
