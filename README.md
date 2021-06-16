@@ -12,7 +12,7 @@ Task Tracker is a no frills to-do list. Everything is accounted for so you can m
 
 ## Key Features
 Add task 
-<img src='./assets/demo_images/add-task.gif' width = "200" height= '1000'>
+<img src='./assets/demo_images/add-task.gif' width = "700" height= '600'>
 Add Project
 ![Add task ](./assets/demo_images/add-project.gif)
 ## Future Development Plans
