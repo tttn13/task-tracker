@@ -35,6 +35,7 @@ const setToDoView = (todo, todo_id) => {
     }
 }
 ~~~
+
 ### Edit Settings
 - Users can edit the todo by clicking the modal box. Settings include editing the text, deleting todo and selecting the project/category that the todo belongs to. 
 
@@ -57,7 +58,9 @@ checkBox.addEventListener("change", () => {
 ~~~
 ### Create Projects/Categories
 - Users can create projects/categories so they can group relevant tasks together in their respective projects. This will make your todo list much more tidy and organized. If users wish to remove project they can do so by selecting the project in the dropdown and click 'Remove' button.
+
 <img src='./assets/demo_images/add-project.gif' width = "600" height= '500'>
+
 ~~~
   const updateItemCategory = (modalBox_id, checkBox, project_element) => {
     NewToDo.getTodos()
