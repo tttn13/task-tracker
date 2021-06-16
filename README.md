@@ -71,6 +71,7 @@ checkBox.addEventListener("change", () => {
           : (item.category = "");
       });
 ~~~
+- Users can return to Home Page by clicking the 'Home Page' button. Users have the same access to edit settings in each individual project. 
 
 ## Future Development Plans
 ---
