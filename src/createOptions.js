@@ -175,6 +175,7 @@ const NewOption = (() => {
     const heading = document.createElement("h2");
     heading.textContent = addedCategory;
     content.appendChild(heading);
+    console.log(NewToDo.getTodos())
     NewToDo.getTodos()
       .filter((item) => item.category == addedCategory)
       .forEach((item) => {

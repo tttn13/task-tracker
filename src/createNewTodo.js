@@ -109,7 +109,6 @@ const NewToDo = (() => {
       );
       all_todos.push(new_todo);
       persistToStorage();
-      // clearContent();
       setview(new_todo,todo_id)
       input_text.value = "";
       input_text.focus();
@@ -375,7 +374,7 @@ const NewToDo = (() => {
     });
 
     const modalBoxHeader = document.createElement("h2");
-    modalBoxHeader.innerText = "Please choose a category";
+    modalBoxHeader.innerText = "Please choose a project";
 
     const modalBox_body_id = "body-" + modalBox_id;
     const modalBox_body = create_div(
