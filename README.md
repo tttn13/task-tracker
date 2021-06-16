@@ -13,7 +13,8 @@ Task Tracker is a no frills to-do list. Everything is accounted for so you can m
 ## Key Features
 Add task 
 ![Add task ](./assets/demo_images/add-task.gif)
-
+Add Project
+![Add task ](./assets/demo_images/add-project.gif)
 ## Future Development Plans
 Ver 2.0 is going to be released with significant updates :
 - Using React and Redux on the front end. 
