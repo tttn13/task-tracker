@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap");
+:root {
+  --bg_main: rgba(30, 62, 91, 0.966);
+}
+
 html,
 body {
   margin: 0;
@@ -9,8 +13,17 @@ body {
 * {
   font: 1.1rem/1.5 "Comfortaa", sans-serif;
   font-weight: 700;
-  background-color: rgba(30, 62, 91, 0.966);
   color: #f8f8f8;
+}
+
+body {
+  display: grid;
+  margin: 0;
+  grid-template-columns: 400px 3fr;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background: var(--bg_main);
 }
 
 .li-container {
@@ -21,14 +34,6 @@ body {
   padding-right: 10px;
   max-width: 700px;
   border-bottom: 1px solid;
-}
-
-body {
-  display: grid;
-  margin: 0;
-  grid-template-columns: 400px 3fr;
-  height: 100%;
-  width: 100%;
 }
 
 #side-bar {
@@ -45,6 +50,7 @@ body {
   border: solid 2px;
   outline: none;
   border-radius: 10px;
+  background: var(--bg_main);
 }
 
 #category-input::placeholder {
@@ -58,6 +64,7 @@ body {
   border: solid 2px;
   border-radius: 10px;
   outline: none;
+  background: var(--bg_main);
 }
 
 #main {
@@ -86,6 +93,7 @@ input[name="todo-input"] {
   border-radius: 10px;
   max-width: 300px;
   padding: 5px 6px;
+  background: var(--bg_main);
 }
 
 .text {
@@ -128,7 +136,6 @@ input[name="submit"] {
   background-color: #f1f1f1;
   /* min-width: 160px; */
   overflow: auto;
-  /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
   z-index: 1;
   margin-left: 6px;
 }
@@ -138,6 +145,7 @@ input[name="submit"] {
   display: block;
   border: solid 1px;
   outline: none;
+  background: var(--bg_main);
 }
 .show {
   display: flex;
@@ -159,13 +167,13 @@ input[name="submit"] {
 }
 
 .modalBoxContent {
-  background-color: inherit;
   display: flex;
   flex-direction: column;
 }
 
 .modalBoxContent * {
   padding: 5px 5px;
+  background: var(--bg_main);
 }
 
 .modalBox .close-icon {
@@ -277,6 +285,7 @@ input[type="button"],
   margin-left: 5px;
   border: solid 2px;
   border-radius: 5px;
+  background: var(--bg_main);
 }
 
 @media screen and (max-width: 1540px) {
