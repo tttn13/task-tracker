@@ -19,7 +19,7 @@ Task Tracker is a no frills to-do list. Everything is accounted for so you can m
 ### Quick Entry/Capture 
 - Users can quickly add a task with or without the date. Tasks without dates are stored in a section called Misc. 
 - Tasks sharing the same deadlines/dates are displayed together in a sub-list on main page.
-<img src='./assets/add-task.gif' width = "600" height= '500'>
+<img src='./assets/add-task.gif' width = "650" height= '500'>
 
 ~~~
 const setToDoView = (todo, todo_id) => {
@@ -59,7 +59,7 @@ checkBox.addEventListener("change", () => {
 ### Create Projects/Categories
 - Users can create projects/categories so they can group relevant tasks together in their respective projects. This will make your todo list much more tidy and organized. If users wish to remove project they can do so by selecting the project in the dropdown and click 'Remove' button.
 
-<img src='./assets/add-project.gif' width = "750" height= '490'>
+<img src='./assets/add-project.gif' width = "600" height= '500'>
 
 ~~~
   const updateItemCategory = (modalBox_id, checkBox, project_element) => {
