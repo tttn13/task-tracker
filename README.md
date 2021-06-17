@@ -59,7 +59,7 @@ checkBox.addEventListener("change", () => {
 ### Create Projects/Categories
 - Users can create projects/categories so they can group relevant tasks together in their respective projects. This will make your todo list much more tidy and organized. If users wish to remove project they can do so by selecting the project in the dropdown and click 'Remove' button.
 
-<img src='./assets/add-project.gif' width = "600" height= '420'>
+<img src='./assets/add-project.gif' width = "650" height= '420'>
 
 ~~~
   const updateItemCategory = (modalBox_id, checkBox, project_element) => {
