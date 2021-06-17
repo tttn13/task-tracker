@@ -19,7 +19,7 @@ Task Tracker is a no frills to-do list. Everything is accounted for so you can m
 ### Quick Entry/Capture 
 - Users can quickly add a task with or without the date. Tasks without dates are stored in a section called Misc. 
 - Tasks sharing the same deadlines/dates are displayed together in a sub-list on main page.
-<img src='./assets/add-task.gif' width = "600" height= '400'>
+<img src='./assets/add-task.gif' width = "600" height= '500'>
 
 ~~~
 const setToDoView = (todo, todo_id) => {
@@ -77,5 +77,6 @@ checkBox.addEventListener("change", () => {
 
 Ver 2.0 is going to be released with significant updates :
 - Using React and Redux on the front end. 
+- Improve UI design
 - PostgresSQL database is going to be used for persistence on the back end. 
 - Multi-tenancy feature would be added to allow users log in and maintain their own task list.  
