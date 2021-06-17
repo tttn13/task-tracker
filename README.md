@@ -2,7 +2,6 @@
 
 ### [Try the App](https://tttn13.github.io/to-do-list/)
 
-## Background and Overview
 
 Task Tracker is a no frills to-do list. Everything is accounted for so you can make progress on the things that are important to you. Simply organize all your to-do’s in projects and mark them when done. The app has a simple UI to ensure quick navigation and avoid clutter. 
 
