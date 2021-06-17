@@ -6,6 +6,5 @@ NewOption.create_form_layout();
 NewOption.create_allProjectsContainers();
 
 NewToDo.loadFromStorage();
-// NewToDo.generateViews()
 CategoriesList.loadFromStorage();
 CategoriesList.populateViews();
