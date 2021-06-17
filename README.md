@@ -19,7 +19,7 @@ Task Tracker is a no frills to-do list. Everything is accounted for so you can m
 ### Quick Entry/Capture 
 - Users can quickly add a task with or without the date. Tasks without dates are stored in a section called Misc. 
 - Tasks sharing the same deadlines/dates are displayed together in a sub-list on main page.
-<img src='./assets/add-task.gif' width = "650" height= '500'>
+<img src='./assets/add-task.gif' width = "680" height= '500'>
 
 ~~~
 const setToDoView = (todo, todo_id) => {
